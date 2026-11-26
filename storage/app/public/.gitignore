@@ -1,0 +1,14 @@
+*
+!.gitignore
+if ($request->hasFile('lampiran')) {
+        // Hapus file lama jika ada
+        if ($catatan->lampiran) {
+            \Storage::delete('public/lampiran/' . $catatan->lampiran);
+        }
+        $file = $request->file('lampiran');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('public/lampiran', $filename);
+        $data['lampiran'] = $filename;
+    }
+
+php artisan storage:link
